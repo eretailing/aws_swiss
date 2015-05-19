@@ -22,5 +22,6 @@ if node[:aws_swiss][:port].nil?
     cidr_list             this_stacks_cidrs
     security_group        node[:aws_swiss][:security_group]
     fallback_group        node[:aws_swiss][:fallback_group]
+    dbhost                node[:gigi][:db_host]
   end
 end
