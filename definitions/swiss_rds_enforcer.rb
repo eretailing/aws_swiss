@@ -5,6 +5,7 @@ define :swiss_rds_enforcer, \
   :cidr_list => nil, \
   :security_group => nil, \
   :fallback_group => nil \
+  :dbhost => nil \
 do
   if params[:security_group].nil?
     raise "swiss_rds_enforcer definition: security_group must be specified"
@@ -38,7 +39,7 @@ do
       
       Chef::Log.info("Poking #{missing_holes.size} missing holes: #{missing_holes.sort.join(',')}")
       missing_holes.each { |cidr|
-        SecurityGroupHoleController.open_rds_hole_with_fallback(params[:security_group], params[:fallback_group], cidr, params[:region], params[:aws_access_key_id], params[:aws_secret_access_key])
+        SecurityGroupHoleController.open_rds_hole_with_fallback(params[:security_group], params[:fallback_group], cidr, params[:region], params[:aws_access_key_id], params[:aws_secret_access_key], params[:dbhost])
       }
     end
   end
